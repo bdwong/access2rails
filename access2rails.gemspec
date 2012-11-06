@@ -17,6 +17,10 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "rspec", ">=2.8"
   gem.add_development_dependency "pry"
+  gem.add_development_dependency "simplecov"
+  gem.add_development_dependency "guard"
+  gem.add_development_dependency "guard-rspec"
+  gem.add_development_dependency 'wdm', '~> 0.0.3'
   gem.add_runtime_dependency "roxml"
   #gem.add_development_dependency "rails", ">=3.0"
 end

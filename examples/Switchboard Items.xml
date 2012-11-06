@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="Switchboard%20Items.xsd" generated="2012-11-02T18:50:45">
+<Switchboard_x0020_Items>
+<SwitchboardID>1</SwitchboardID>
+<ItemNumber>0</ItemNumber>
+<ItemText>Main Switchboard</ItemText>
+<Command>0</Command>
+<Argument>Default</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>1</SwitchboardID>
+<ItemNumber>1</ItemNumber>
+<ItemText>Membership</ItemText>
+<Command>1</Command>
+<Argument>2</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>1</SwitchboardID>
+<ItemNumber>2</ItemNumber>
+<ItemText>Offering system</ItemText>
+<Command>3</Command>
+<Argument>MAINOFFERINGBATCH</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>1</SwitchboardID>
+<ItemNumber>3</ItemNumber>
+<ItemText>Membership - printing</ItemText>
+<Command>1</Command>
+<Argument>3</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>1</SwitchboardID>
+<ItemNumber>4</ItemNumber>
+<ItemText>Exit</ItemText>
+<Command>6</Command>
+<Argument></Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>0</ItemNumber>
+<ItemText>Membership</ItemText>
+<Command>0</Command>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>1</ItemNumber>
+<ItemText>Edit membership details</ItemText>
+<Command>3</Command>
+<Argument>MEMBERSHIP</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>2</ItemNumber>
+<ItemText>Edit Pastor List</ItemText>
+<Command>7</Command>
+<Argument>EditPastors</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>3</ItemNumber>
+<ItemText>Edit Church List</ItemText>
+<Command>7</Command>
+<Argument>EditChurches</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>4</ItemNumber>
+<ItemText>Edit membership (table format)</ItemText>
+<Command>7</Command>
+<Argument>EditMembers</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>5</ItemNumber>
+<ItemText>Edit membership links (datasheet)</ItemText>
+<Command>7</Command>
+<Argument>EditMembershipLinks</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>2</SwitchboardID>
+<ItemNumber>6</ItemNumber>
+<ItemText>Back to main switchboard</ItemText>
+<Command>1</Command>
+<Argument>1</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>0</ItemNumber>
+<ItemText>Membership - printing</ItemText>
+<Command>0</Command>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>1</ItemNumber>
+<ItemText>Print directory sorted by family</ItemText>
+<Command>3</Command>
+<Argument>PRINTDIR</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>2</ItemNumber>
+<ItemText>Print directory sorted by family (proof)</ItemText>
+<Command>7</Command>
+<Argument>PrintMemberFamilyProof</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>3</ItemNumber>
+<ItemText>Print membership details</ItemText>
+<Command>7</Command>
+<Argument>PrintMembershipDetails</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>4</ItemNumber>
+<ItemText>Print active congregation alphabetical</ItemText>
+<Command>7</Command>
+<Argument>PrintMembershipAlpha</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>5</ItemNumber>
+<ItemText>Print active members</ItemText>
+<Command>7</Command>
+<Argument>PrintMembershipReportAll</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>6</ItemNumber>
+<ItemText>Print directory alphabetical</ItemText>
+<Command>7</Command>
+<Argument>PrintDirAlphabetical</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>7</ItemNumber>
+<ItemText>Print registered vcbc members</ItemText>
+<Command>7</Command>
+<Argument>PrintRegisteredVancouverMember</Argument>
+</Switchboard_x0020_Items>
+<Switchboard_x0020_Items>
+<SwitchboardID>3</SwitchboardID>
+<ItemNumber>8</ItemNumber>
+<ItemText>Back to main switchboard</ItemText>
+<Command>1</Command>
+<Argument>1</Argument>
+</Switchboard_x0020_Items>
+</dataroot>
