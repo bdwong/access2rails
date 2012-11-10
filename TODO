@@ -1,0 +1,70 @@
+#Make work with xpath.
+
+#C:\project\access2rails>irb
+require 'bundler/setup'
+require 'nokogiri'
+a = File.read("examples/Switchboard Items.xsd")
+c = Nokogiri::XML.parse(a)
+c.xpath("/xsd:schema/xsd:element[1]")
+c.remove_namespaces!
+
+# This is officially the table name. In the end, regex s/_x0020_/_/
+dataroot = c.xpath("/schema/element[@name='dataroot']/complexType/sequence/element").attr("ref")
+
+# Top-level table node.
+table_node = c.xpath("/schema/element[@name='#{dataroot}']")
+
+#table = {:name => dataroot, :display_name => filtered(dataroot)}
+table = {:name => dataroot}
+
+# index_info
+index_nodes = table_node.xpath("annotation/appinfo/index")
+table[:indices] = index_nodes.map do |index_node|
+{
+  :clustered => index_node.attr("clustered"),
+  :index_key => index_node.attr("index-key"),
+  :index_name => index_node.attr("index-name"),
+  :primary => index_node.attr("primary"),
+  :unique => index_node.attr("unique")
+}
+
+column_nodes = table_node.xpath("complexType/sequence")
+
+table[:columns] = column_nodes.xpath("element").map do |col_node|
+  col = {
+    :name => col_node.attr("name"),
+    :minoccurs => col_node.attr("minoccurs"),
+    :jet_type => col_node.attr("jetType"),
+    :sqlSType => col_node.attr("sqlSType"),
+    :type => col_node.attr("type")
+  }
+  if col[:type].nil?
+    type_node = col_node.xpath("simpleType")
+    raise "unexpected unknown type" if type_node.count == 0
+    col.merge({
+      :type => type_node.xpath("restriction").attr("base"),
+      :max_length => type_node.xpath("restriction/maxLength").attr("value")
+    })
+  end
+  col
+end
+
+
+# this works, but doesn't solve my problem. Either way I need to recurse the xsd document tree to extract the attributes. May as well explicitly generate the object tree so that I can extract what's important to me, then generate the model recursively.
+
+nodes to generate:
+
+schema
+element
+complexType
+sequence
+attribute
+annotation
+appinfo
+index
+simpleType
+restriction
+maxLength
+
+- Ignoring all text nodes,
+recurse through all children.
