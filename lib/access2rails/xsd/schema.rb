@@ -24,8 +24,13 @@ module Access2rails::Xsd
 
       table_node = c.xpath("/schema/element[@name='#{@name}']")
       index_nodes = table_node.xpath("annotation/appinfo/index")
-      index_nodes.each do |index_node|
-        @indices << Index.new(index_node)
+      @indices = index_nodes.map do |index_node|
+        Index.new(index_node)
+      end
+
+      column_nodes = table_node.xpath("complexType/sequence/element")
+      @columns = column_nodes.map do |col_node|
+        Column.new(col_node)
       end
     end
   end

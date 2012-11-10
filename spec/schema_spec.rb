@@ -40,23 +40,52 @@ module Access2rails::Xsd
         index.unique?.should be_true
       end
 
-      xit "should have the correct column count" do
+      it "should have the correct column count" do
         @object.columns.should be_kind_of Array
         @object.columns.count.should == 5
       end
 
-      xit "should have the correct first column" do
+      it "should have the correct first column" do
         column = @object.columns[0]
         column.name.should == "SwitchboardID"
         column.jet_type.should == "longinteger"
         column.sqlSType.should == "int"
-        column.type.should == "int"
+        column.type.should == "xsd:int"
       end
 
-      it "should have the correct second column"
-      it "should have the correct third column"
-      it "should have the correct fourth column"
-      it "should have the correct fifth column"
+      it "should have the correct second column" do
+        column = @object.columns[1]
+        column.name.should == "ItemNumber"
+        column.jet_type.should == "integer"
+        column.sqlSType.should == "smallint"
+        column.type.should == "xsd:short"
+      end
+
+      it "should have the correct third column" do
+        column = @object.columns[2]
+        column.name.should == "ItemText"
+        column.jet_type.should == "text"
+        column.sqlSType.should == "nvarchar"
+        column.type.should == "xsd:string"
+        column.max_length.should == 255
+      end
+
+      it "should have the correct fourth column" do
+        column = @object.columns[3]
+        column.name.should == "Command"
+        column.jet_type.should == "integer"
+        column.sqlSType.should == "smallint"
+        column.type.should == "xsd:short"
+      end
+
+      it "should have the correct fifth column" do
+        column = @object.columns[4]
+        column.name.should == "Argument"
+        column.jet_type.should == "text"
+        column.sqlSType.should == "nvarchar"
+        column.type.should == "xsd:string"
+        column.max_length.should == 50
+      end
 
     end
   end
