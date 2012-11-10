@@ -18,18 +18,5 @@ module Access2rails::Xsd
         @max_length = type_node.xpath("restriction/maxLength").attr("value").value.to_i
       end
     end
-
-    def clustered?
-      !!@clustered
-    end
-
-    def primary?
-      !!@primary
-    end
-
-    def unique?
-      !!@unique
-    end
-
   end
 end
