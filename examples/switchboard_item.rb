@@ -1,5 +1,5 @@
 class SwitchboardItem < ActiveRecord::Base
-  attr_accessible :switchboard_id, :item_number, :item_text, :command, :argument
+  attr_accessor :switchboard_id, :item_number, :item_text, :command, :argument
 
   validates :switchboard_id, :presence => true
   validates :switchboard_id, :uniqueness => true

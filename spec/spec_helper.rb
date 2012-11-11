@@ -1,4 +1,5 @@
 begin
+  require 'active_record'
   require 'simplecov'
 
   SimpleCov.start do

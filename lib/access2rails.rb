@@ -1,4 +1,7 @@
 require "access2rails/version"
+require 'active_support'
+require 'active_support/core_ext/string'
+
 require "access2rails/model_generator"
 require "access2rails/xsd/xsd"
 
