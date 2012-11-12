@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Access2rails::VERSION
 
-  gem.add_development_dependency "rspec", ">=2.8"
+  gem.add_development_dependency "rspec", ">=2.11"
   gem.add_development_dependency "pry"
   gem.add_development_dependency "simplecov"
   gem.add_development_dependency "guard"

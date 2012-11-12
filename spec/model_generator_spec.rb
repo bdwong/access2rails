@@ -24,15 +24,14 @@ module Access2rails
         @model_generator = ModelGenerator.from_schema(@schema_mock)
       end
 
-      it "should have a filename" do
-        @model_generator.should respond_to :filename
-        @model_generator.filename.should == "schema_name.rb"
-      end
+      subject(:model_generator) { @model_generator }
+
+      its(:filename) { should == "schema_name.rb" }
 
       it "should build the model as a string" do
-        model = @model_generator.build
+        model = model_generator.build
         model.should be_kind_of String
-        model.include?("class SchemaName").should be_true
+        model.should match "class SchemaName"
       end
     end
 
@@ -43,24 +42,26 @@ module Access2rails
         @model = @model_generator.build
       end
 
+      subject(:model) { @model }
+
       it "should have class declaration that inherits from ActiveRecord::Base" do
-        @model.include?("class SchemaName < ActiveRecord::Base").should be_true
+        model.should match "class SchemaName < ActiveRecord::Base"
       end
 
-      it "should have validations" do
-        @model.include?("validates :column1_name, :presence => true").should be_true
-        @model.include?("validates :column1_name, :numericality => { :only_integer => true }").should be_true
-        @model.include?("validates :column2_name, :length => { :maximum => 10 }").should be_true
+      context "validations" do
+        it {should match "validates :column1_name, :presence => true"}
+        it {should match "validates :column1_name, :numericality => { :only_integer => true }"}
+        it {should match "validates :column2_name, :length => { :maximum => 10 }"}
       end
 
-      it "should have XML mapping" do
-        @model.include?("include ROXML").should be_true
-        @model.include?("xml_accessor :column1_name").should be_true
-        @model.include?("xml_accessor :column2_name").should be_true
+      context "XML mapping" do
+        it {should match "include ROXML"}
+        it {should match "xml_accessor :column1_name"}
+        it {should match "xml_accessor :column2_name"}
       end
 
       it "should not have syntax errors" do
-        expect { eval(@model) }.to_not raise_error
+        expect { eval(model) }.to_not raise_error
       end
     end
 
