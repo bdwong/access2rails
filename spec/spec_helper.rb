@@ -11,6 +11,7 @@ end
 
 require 'rspec'
 require 'roxml'
+require 'timecop'
 require File.dirname(__FILE__) + '/../lib/access2rails'
 
 # Require shared examples and other support files
