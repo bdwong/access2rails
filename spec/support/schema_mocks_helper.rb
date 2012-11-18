@@ -6,12 +6,13 @@ def create_mocks
         :index_key => "Column1Name", # Column names concatenated with spaces.
         :index_name => "IndexName",
         :primary => "yes",
-        :unique => "yes"
+        :unique => "yes",
+        :unique? => true
       ),
     ]
 
   @column_mocks = [
-      OpenStruct.new(
+      Access2rails::Xsd::Column.from_hash(
         :name => "Column1Name",
         :minoccurs => "1",
         :jet_type => "longInteger",
@@ -19,7 +20,7 @@ def create_mocks
         :type => "xsd:int",
         :max_length => nil
       ),
-      OpenStruct.new(
+      Access2rails::Xsd::Column.from_hash(
         :name => "Column2Name",
         :minoccurs => "0",
         :jet_type => "text",
@@ -33,5 +34,24 @@ def create_mocks
     :name => "SchemaName",
     :indices => @index_mocks,
     :columns => @column_mocks
-  )
+    )
+
+  # @money_column = Access2rails::Xsd::Column.from_hash(
+  #   :name => "Column1Name",
+  #   :minoccurs => "1",
+  #   :jet_type => "longInteger",
+  #   :sqlSType => "int",
+  #   :type => "xsd:int",
+  #   :max_length => nil
+  #   )
+
+  # @decimal4_column = Access2rails::Xsd::Column.from_hash(
+  #   :name => "Column1Name",
+  #   :minoccurs => "1",
+  #   :jet_type => "longInteger",
+  #   :sqlSType => "int",
+  #   :type => "xsd:int",
+  #   :max_length => nil
+  #   )
+
 end

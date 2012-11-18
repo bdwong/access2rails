@@ -3,13 +3,17 @@ module Access2rails::Xsd
 
   class Column
     attr_accessor :name, :minoccurs, :jet_type, :sqlSType, :type, :max_length
+    include ::Access2rails::ColumnHelper
 
-    def initialize(column_node)
+    def initialize(column_node=nil)
+      return if column_node.nil?
+
       @name = column_node.attr("name").strip
       @minoccurs = column_node.attr("minoccurs"),
       @jet_type = column_node.attr("jetType"),
       @sqlSType = column_node.attr("sqlSType"),
       @type = column_node.attr("type")
+      @max_length = nil
 
       if @type.nil?
         type_node = column_node.xpath("simpleType")

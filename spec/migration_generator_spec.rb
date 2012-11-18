@@ -56,5 +56,49 @@ module Access2rails
       end
     end
 
+    context "Instantiated with built migration" do
+      let (:migration_generator) { @migration_generator = MigrationGenerator.from_schema(@schema_mock) }
+      let (:migration) { @migration = migration_generator.build }
+      subject { migration }
+
+      it "should have class declaration that inherits from ActiveRecord::Migration" do
+        migration.should match "class CreateSchemaName < ActiveRecord::Migration"
+      end
+
+      context "table definition" do
+        it {should match /create_table :schema_names do \|t\|/}
+      end
+
+      context "column definition" do
+        it {should match "t.integer :column1_name"}
+        it {should match "t.string :column2_name, :limit => 10"}
+      end
+
+      context "indices" do
+        it {should match "add_index :schema_names, :column1_name, :unique => true"}
+      end
+
+      it "should not have syntax errors" do
+        expect { eval(migration) }.to_not raise_error
+      end
+
+    end
+
+    #TODO: have a column helper mixin so logic can be moved to the column class.
+    context "column generation" do
+      it "should include the table name"
+      it "should include the column name"
+      it "should include the correct type"
+      it "should deal with :precision and :scale for money and decimal types."
+    end
+
+    #TODO: have a index helper mixin so logic can be moved to the index class.
+    context "index generation" do
+      it "should include the table name"
+      it "should include the column name"
+      it "should include multiple columns in an array"
+      it "should include :unique => true if the key is unique"
+    end
+
   end
 end
