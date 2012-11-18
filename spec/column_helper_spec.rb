@@ -19,7 +19,7 @@ module Access2rails
 
       it "should instantiate TestColumn.from_hash with arguments" do
         expect {
-          TestColumn.from_hash(:name => "value") 
+          TestColumn.from_hash(:name => "value")
           }.to_not raise_error
       end
 
