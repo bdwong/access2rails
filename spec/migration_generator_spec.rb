@@ -79,17 +79,11 @@ module Access2rails
       end
 
       it "should not have syntax errors" do
+        puts "The migration is:"
+        puts migration
         expect { eval(migration) }.to_not raise_error
       end
 
-    end
-
-    #TODO: have a column helper mixin so logic can be moved to the column class.
-    context "column generation" do
-      it "should include the table name"
-      it "should include the column name"
-      it "should include the correct type"
-      it "should deal with :precision and :scale for money and decimal types."
     end
 
     #TODO: have a index helper mixin so logic can be moved to the index class.

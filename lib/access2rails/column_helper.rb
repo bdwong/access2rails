@@ -20,27 +20,48 @@ module Access2rails
     end
 
     module InstanceMethods
-      # copied from migration_generator
+      def money_type?
+        @jet_type == "currency" or @sqlSType == "money"
+      end
+
       def rails_type
         case @type
         when "xsd:int", "xsd:short"
           "integer"
+        when "xsd:double"
+          if money_type?
+            "decimal"
+          else
+            "float"
+          end
+
         when "xsd:string"
           "string"
+        when "xsd:boolean"
+          "boolean"
+        when "xsd:datetime"
+          "datetime"
+        else
+          raise ArgumentError, "Unknown column type '#{@type}'."
         end
       end
 
       def options
-        if not @max_length.nil?
-          ":limit => #{@max_length}"
-        end
+        opts = []
+        opts << ":limit => #{@max_length}" if @max_length
+        opts << ":precision => 15, :scale => 2" if money_type?
+        opts.join(", ")
+      end
+
+      def rails_column_name
+        @name.underscore.gsub(" ", "_").gsub("_0x0020_", "_")
       end
 
       def definition
-        if options
-          "      t.#{rails_type} :#{@name.underscore}, #{options}"
+        unless options.empty?
+          "      t.#{rails_type} :#{rails_column_name}, #{options}"
         else
-          "      t.#{rails_type} :#{@name.underscore}"
+          "      t.#{rails_type} :#{rails_column_name}"
         end
       end
     end
