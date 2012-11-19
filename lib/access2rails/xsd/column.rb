@@ -9,9 +9,9 @@ module Access2rails::Xsd
       return if column_node.nil?
 
       @name = column_node.attr("name").strip
-      @minoccurs = column_node.attr("minoccurs"),
-      @jet_type = column_node.attr("jetType"),
-      @sqlSType = column_node.attr("sqlSType"),
+      @minoccurs = column_node.attr("minoccurs")
+      @jet_type = column_node.attr("jetType")
+      @sqlSType = column_node.attr("sqlSType")
       @type = column_node.attr("type")
       @max_length = nil
 
