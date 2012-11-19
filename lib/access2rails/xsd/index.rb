@@ -3,6 +3,7 @@ module Access2rails::Xsd
 
   class Index
     attr_accessor :clustered, :index_key, :index_name, :primary, :unique
+    include ::Access2rails::IndexHelper
 
     def initialize(index_node=nil)
       return if index_node.nil?
@@ -13,18 +14,5 @@ module Access2rails::Xsd
       @primary = index_node.attr("primary")
       @unique = index_node.attr("unique")
     end
-
-    def clustered?
-      @clustered == "yes"
-    end
-
-    def primary?
-      @primary == "yes"
-    end
-
-    def unique?
-      @unique == "yes"
-    end
-
   end
 end

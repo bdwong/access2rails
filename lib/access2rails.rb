@@ -3,6 +3,7 @@ require 'active_support'
 require 'active_support/core_ext/string'
 
 require "access2rails/column_helper"
+require "access2rails/index_helper"
 require "access2rails/model_generator"
 require "access2rails/migration_generator"
 require "access2rails/xsd/xsd"

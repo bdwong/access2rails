@@ -1,13 +1,12 @@
 
 def create_mocks
   @index_mocks = [
-      OpenStruct.new(
+      Access2rails::Xsd::Index.from_hash(
         :clustered => "no",
         :index_key => "Column1Name", # Column names concatenated with spaces.
         :index_name => "IndexName",
         :primary => "yes",
         :unique => "yes",
-        :unique? => true
       ),
     ]
 

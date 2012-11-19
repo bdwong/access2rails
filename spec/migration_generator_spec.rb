@@ -85,14 +85,5 @@ module Access2rails
       end
 
     end
-
-    #TODO: have a index helper mixin so logic can be moved to the index class.
-    context "index generation" do
-      it "should include the table name"
-      it "should include the column name"
-      it "should include multiple columns in an array"
-      it "should include :unique => true if the key is unique"
-    end
-
   end
 end

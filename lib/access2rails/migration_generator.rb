@@ -27,13 +27,10 @@ module Access2rails
       end
 
       b << "    end"
+      b << "" if @schema.indices.count > 0
 
-      if (@schema.indices).count > 0
-        b << ""
-
-        @schema.indices.each do |index|
-          b << formatted_index(index)
-        end
+      @schema.indices.each do |index|
+        b << index.definition(table_name)
       end
 
       b << "  end"
@@ -46,22 +43,5 @@ module Access2rails
       "#{timestamp}_create_#{name.underscore}.rb"
     end
 
-    def formatted_index(index)
-      columns = index.index_key.chomp.split(' ').map do |name|
-        ":#{name.underscore}"
-      end
-      if columns.count > 1
-        index_columns = "[#{columns.join ", "}]"
-      else
-        index_columns = columns[0]
-      end
-
-      #TODO: make using the index_name optional. Currently we don't use it.
-      if index.unique?
-        "    add_index :#{table_name}, #{index_columns}, :unique => true"
-      else
-        "    add_index :#{table_name}, #{index_columns}"
-      end
-    end
   end
 end
