@@ -14,12 +14,14 @@ module Access2rails
       end
 
       it "should instantiate TestColumn.from_hash with empty hash" do
-        expect { TestColumn.from_hash({}) }.to_not raise_error
+        expect {
+          TestColumn.from_hash({}).should be_an_instance_of TestColumn
+          }.to_not raise_error
       end
 
       it "should instantiate TestColumn.from_hash with arguments" do
         expect {
-          TestColumn.from_hash(:name => "value")
+          TestColumn.from_hash(:name => "value").should be_an_instance_of TestColumn
           }.to_not raise_error
       end
 
