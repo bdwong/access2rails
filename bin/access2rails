@@ -5,6 +5,7 @@ require 'optparse'
 options = {
   :verbose => false,
   :models => true,
+  :migrations => true,
 }
 opt_parser = OptionParser.new do |opts|
   opts.banner = "Usage: access2rails [options] file_or_directory..."
@@ -14,6 +15,9 @@ opt_parser = OptionParser.new do |opts|
   end
   opts.on("-m", "--[no-]models", "Generate rails models") do |m|
     options[:models] = m
+  end
+  opts.on("-g", "--[no-]migrations", "Generate rails migrations") do |m|
+    options[:migrations] = m
   end
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
@@ -48,20 +52,22 @@ if files.count == 0
 end
 
 files.each do |schema_filename|
-  #schema_filename = 'examples/Switchboard Items.xsd'
   schema = Access2rails::Xsd::Schema.from_xml(File.read(schema_filename))
   model_generator = Access2rails::ModelGenerator.from_schema(schema)
   migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
 
   if options[:models]
-    puts "Generating model"
     model_path = File.join('app/models', model_generator.filename)
     File.open(model_path, 'w+') do |f|
       f.puts(model_generator.build)
     end
   end
 
-  puts "Generating migration"
-  puts migration_generator.build
+  if options[:migrations]
+    migration_path = File.join('db/migrate', migration_generator.filename)
+    File.open(migration_path, 'w+') do |f|
+      f.puts(migration_generator.build)
+    end
+  end
 end
 
