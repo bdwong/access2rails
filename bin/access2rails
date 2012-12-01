@@ -1,7 +1,27 @@
 #!/usr/bin/env ruby
 require 'access2rails'
+require 'optparse'
 
-puts "Hello world!"
+options = {}
+opt_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: access2rails [options] file_or_directory..."
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end
+
+opt_parser.parse!
+
+if ARGV.count == 0
+  puts opt_parser.help
+  exit
+end
+#paths = ARGV
 
 schema_filename = 'examples/Switchboard Items.xsd'
 
