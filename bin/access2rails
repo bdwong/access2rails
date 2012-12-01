@@ -15,22 +15,42 @@ opt_parser = OptionParser.new do |opts|
   end
 end
 
-opt_parser.parse!
-
-if ARGV.count == 0
+begin
+  opt_parser.parse!
+rescue OptionParser::InvalidOption => e
+  puts e.to_s
   puts opt_parser.help
   exit
 end
-#paths = ARGV
 
-schema_filename = 'examples/Switchboard Items.xsd'
+files = []
+ARGV.each do |path|
+  if File.directory?(path)
+    files.concat(Dir.glob(File.join(path, "*.xsd")))
+  elsif File.exists?(path)
+    files << path
+  else
+    puts "File not found: #{path}"
+    exit
+  end
+end
 
-schema = Access2rails::Xsd::Schema.from_xml(File.read(schema_filename))
-model_generator = Access2rails::ModelGenerator.from_schema(schema)
-migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
+if files.count == 0
+  puts "No files to process!"
+  puts opt_parser.help
+  exit
+end
 
-puts "Model:"
-puts model_generator.build
+files.each do |schema_filename|
+  #schema_filename = 'examples/Switchboard Items.xsd'
+  schema = Access2rails::Xsd::Schema.from_xml(File.read(schema_filename))
+  model_generator = Access2rails::ModelGenerator.from_schema(schema)
+  migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
 
-puts "Migration:"
-puts migration_generator.build
+  puts "Generating model"
+  puts model_generator.build
+
+  puts "Generating migration"
+  puts migration_generator.build
+end
+

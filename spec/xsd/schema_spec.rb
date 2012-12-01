@@ -10,13 +10,13 @@ module Access2rails::Xsd
     end
 
     it "should parse Switchboard Items.xsd example" do
-      object = Schema.from_xml(File.read(File.join(Access2rails::PROJECT_DIR, 'examples', 'Switchboard Items.xsd')))
+      object = Schema.from_xml(File.read(File.join(Access2rails::PROJECT_DIR, 'examples', 'switchboard', 'Switchboard Items.xsd')))
       object.class.should == Schema
     end
 
     context "Instantiate Switchboard Items example" do
       before :all do
-        @object = Schema.from_xml(File.read(File.join(Access2rails::PROJECT_DIR, 'examples', 'Switchboard Items.xsd')))
+        @object = Schema.from_xml(File.read(File.join(Access2rails::PROJECT_DIR, 'examples', 'switchboard', 'Switchboard Items.xsd')))
       end
 
       it "should have the correct attributes" do

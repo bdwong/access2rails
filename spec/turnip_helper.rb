@@ -1,6 +1,5 @@
 # Require turnip steps
-Dir.glob("spec/steps/**/*steps.rb") do |f|
-  puts "File: #{f}"
+Dir.glob("spec/acceptance/steps/**/*steps.rb") do |f|
   load f, true
 end
 
