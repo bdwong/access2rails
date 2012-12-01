@@ -1,2 +1,16 @@
 #!/usr/bin/env ruby
+require 'access2rails'
+
 puts "Hello world!"
+
+schema_filename = 'examples/Switchboard Items.xsd'
+
+schema = Access2rails::Xsd::Schema.from_xml(File.read(schema_filename))
+model_generator = Access2rails::ModelGenerator.from_schema(schema)
+migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
+
+puts "Model:"
+puts model_generator.build
+
+puts "Migration:"
+puts migration_generator.build
