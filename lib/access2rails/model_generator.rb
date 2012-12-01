@@ -12,7 +12,7 @@ module Access2rails
     end
 
     def default_filename
-      "#{@schema.name.underscore}.rb"
+      "#{@schema.rails_name}.rb"
     end
 
     def build

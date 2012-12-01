@@ -25,8 +25,12 @@ module Access2rails::Xsd
         @object.should respond_to :columns
       end
 
-      it "should have the correct name" do
+      it "should replace _x0020_ with underscore and have the correct name" do
         @object.name.should == "Switchboard_x0020_Items"
+      end
+
+      it "should have the correct rails_name" do
+        @object.rails_name.should == "switchboard_items"
       end
 
       it "should have the correct indices" do

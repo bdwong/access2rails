@@ -7,10 +7,12 @@ module Access2rails::Xsd
       Schema.new(string)
     end
 
-    def initialize(string)
+    def initialize(string=nil)
       @name = nil
       @indices = []
       @columns = []
+
+      return if string.nil?
 
       c = Nokogiri::XML.parse(string)
       c.remove_namespaces!
@@ -32,6 +34,10 @@ module Access2rails::Xsd
       @columns = column_nodes.map do |col_node|
         Column.new(col_node)
       end
+    end
+
+    def rails_name
+      @name.underscore.gsub(" ", "_").gsub("_x0020_", "_")
     end
   end
 end

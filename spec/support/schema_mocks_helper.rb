@@ -29,11 +29,10 @@ def create_mocks
       )
     ]
 
-  @schema_mock = OpenStruct.new(
-    :name => "SchemaName",
-    :indices => @index_mocks,
-    :columns => @column_mocks
-    )
+  @schema_mock = Access2rails::Xsd::Schema.new
+  @schema_mock.name = "SchemaName"
+  @schema_mock.indices = @index_mocks
+  @schema_mock.columns = @column_mocks
 
   # @money_column = Access2rails::Xsd::Column.from_hash(
   #   :name => "Column1Name",

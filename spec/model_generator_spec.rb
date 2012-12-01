@@ -65,5 +65,33 @@ module Access2rails
       end
     end
 
+    describe :default_filename do
+      it "should be schema.rails_name with .rb appended" do
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.default_filename.should == "schema_name.rb"
+
+        @schema_mock.name = "test_x0020_name"
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.default_filename.should == "test_name.rb"
+      end
+    end
+
+    describe :filename do
+      it "should be default_filename when instantiated" do
+        @schema_mock.name = "test_name"
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.default_filename.should == "test_name.rb"
+        @model_generator.filename.should == "test_name.rb"
+      end
+
+      it "should not change if schema_name changes" do
+        @schema_mock.name = "test_name"
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.filename.should == "test_name.rb"
+        @schema_mock.name = "SomeOtherName"
+        @model_generator.filename.should == "test_name.rb"
+      end
+    end
+
   end
 end
