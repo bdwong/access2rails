@@ -1,6 +1,7 @@
 Feature: help
   Background:
     Given a command line
+    # And working directory 'examples'
 
   Scenario: running access2rails with no command line options
     When the user runs 'access2rails'
@@ -16,8 +17,8 @@ Feature: help
     And the output should include 'Usage:'
 
   Scenario: running access2rails but file not found
-    When the user runs 'access2rails not-a-file.xsd'
-    Then the output should not include 'File not found'
+    When the user runs 'access2rails does-not-exist.xsd'
+    Then the output should include 'File not found'
 
   Scenario: running access2rails on empty folder
     When the user runs 'access2rails examples/empty'

@@ -2,12 +2,18 @@
 require 'access2rails'
 require 'optparse'
 
-options = {}
+options = {
+  :verbose => false,
+  :models => true,
+}
 opt_parser = OptionParser.new do |opts|
   opts.banner = "Usage: access2rails [options] file_or_directory..."
 
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
     options[:verbose] = v
+  end
+  opts.on("-m", "--[no-]models", "Generate rails models") do |m|
+    options[:models] = m
   end
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
@@ -47,8 +53,13 @@ files.each do |schema_filename|
   model_generator = Access2rails::ModelGenerator.from_schema(schema)
   migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
 
-  puts "Generating model"
-  puts model_generator.build
+  if options[:models]
+    puts "Generating model"
+    model_path = File.join('app/models', model_generator.filename)
+    File.open(model_path, 'w+') do |f|
+      f.puts(model_generator.build)
+    end
+  end
 
   puts "Generating migration"
   puts migration_generator.build

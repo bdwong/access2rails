@@ -32,6 +32,10 @@ module ::CommandLineSteps
     @output.should include(string)
   end
 
+  step "the output should not include :string" do |string|
+    @output.should_not include(string)
+  end
+
   step "a new rails project at :path" do |path|
     @rails_path = path
     FileUtils.rm_rf(path)
@@ -53,5 +57,23 @@ module ::CommandLineSteps
       puts "Running #{cmdline}"
       @output = `#{cmdline}`
     end
+  end
+
+  step "there should be :count file/files in :path" do |count, path|
+    File.exist?(path).should be_true
+    Dir[File.join(path, "*")].count.should be == count
+  end
+
+
+end
+
+# This lets the :count placeholder work more naturally.
+placeholder :count do
+  match /\d+/ do |count|
+    count.to_i
+  end
+
+  match /no/ do
+    0
   end
 end
