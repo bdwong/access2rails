@@ -4,7 +4,14 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'wdm', '~> 0.0.3', :platforms => [:mswin, :mingw]
-os = `uname`
-if os =~ /Linux/
-  gem 'rb-inotify'
+
+group :development do
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+  if `which growlnotify`.empty?
+    gem 'ruby_gntp'
+  else
+    gem 'growl'
+  end
 end
