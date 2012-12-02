@@ -8,12 +8,20 @@ module Access2rails
 
     def initialize(schema)
       @schema = schema
-      @name = schema.name
-      @timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+      self.name = schema.normalized_name.camelize
+      self.timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+    end
+
+    def filename
+      @filename ||= default_filename
+    end
+
+    def default_filename
+      "#{timestamp}_create_#{table_name}.rb"
     end
 
     def table_name
-      name.underscore.pluralize
+      @schema.rails_name.underscore.pluralize
     end
 
     def build
@@ -37,10 +45,6 @@ module Access2rails
       b << "end"
 
       b.join("\n")
-    end
-
-    def filename
-      "#{timestamp}_create_#{name.underscore}.rb"
     end
 
   end

@@ -4,8 +4,8 @@ module Access2rails
 
     def initialize(schema)
       @schema = schema
-      @filename = default_filename
-      @model_name = default_model_name
+      self.filename = default_filename
+      self.model_name = default_model_name
     end
 
     def self.from_schema(schema)

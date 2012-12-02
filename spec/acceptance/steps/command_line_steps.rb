@@ -66,10 +66,15 @@ module ::CommandLineSteps
   end
 
   # This optional step follows "there should be :count file/files in :path"
+  # Globs (*|**|?) are accepted but only one file must match.
   step "the file/files should be named:" do |table|
     table.hashes.each do |hash|
-      filename = File.join(@reference_path, hash['Name'])
-      File.exists?(filename).should be_true, "Expected file not found: #{filename}"
+      glob = File.join(@reference_path, hash['Name'])
+      matches = Dir[glob]
+      # require 'pry'
+      # binding.pry
+      fail "Multiple files found matching glob: #{glob}" if matches.count > 1
+      fail "Expected file not found: #{glob}" unless matches.count == 1
     end
   end
 end

@@ -9,8 +9,8 @@ Feature: Generate Migrations
     When the user runs 'access2rails' on examples
     Then there should be 1 file in 'tmp/project/db/migrate'
     And the file should be named:
-    | Name                        |
-    | create_switchboard_items.rb |
+    | Name                                       |
+    | ??????????????_create_switchboard_items.rb |
 
   Scenario: running access2rails to not generate migrations
     When the user runs 'access2rails --no-migrations' on examples

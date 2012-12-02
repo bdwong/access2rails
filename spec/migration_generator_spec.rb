@@ -38,6 +38,47 @@ module Access2rails
       end
     end
 
+    context "Attributes" do
+      before :all do
+        create_mocks
+        @schema_mock.indices = []
+        @schema_mock.columns = []
+      end
+
+      describe :default_filename do
+        it "should follow correct rails migration naming" do
+          @schema_mock.name = "Entities"
+          @migration_generator = MigrationGenerator.from_schema(@schema_mock)
+          @migration_generator.timestamp = "yymmddHHMMSS"
+          @migration_generator.default_filename.should == "yymmddHHMMSS_create_entities.rb"
+
+          @schema_mock.name = "test_x0020_name"
+          @migration_generator = MigrationGenerator.from_schema(@schema_mock)
+          @migration_generator.timestamp = "yymmddHHMMSS"
+          @migration_generator.default_filename.should == "yymmddHHMMSS_create_test_names.rb"
+        end
+      end
+
+      describe :filename do
+        it "should be default_filename when instantiated" do
+          @schema_mock.name = "test_name"
+          @migration_generator = MigrationGenerator.from_schema(@schema_mock)
+          @migration_generator.timestamp = "yymmddHHMMSS"
+          @migration_generator.default_filename.should == "yymmddHHMMSS_create_test_names.rb"
+          @migration_generator.filename.should == "yymmddHHMMSS_create_test_names.rb"
+        end
+
+        it "should not change if schema_name changes" do
+          @schema_mock.name = "test_name"
+          @migration_generator = MigrationGenerator.from_schema(@schema_mock)
+          @migration_generator.timestamp = "yymmddHHMMSS"
+          @migration_generator.filename.should == "yymmddHHMMSS_create_test_names.rb"
+          @schema_mock.name = "SomeOtherName"
+          @migration_generator.filename.should == "yymmddHHMMSS_create_test_names.rb"
+        end
+      end
+    end
+
     context "Frozen in time" do
       before(:all) { Timecop.freeze(Time.local(2012, 3, 1, 18, 24, 3)) }
       after(:all) { Timecop.return }
@@ -51,7 +92,7 @@ module Access2rails
           migration_generator.name.should == @schema_mock.name
         end
 
-        its(:filename) { should == "20120301182403_create_schema_name.rb"}
+        its(:filename) { should == "20120301182403_create_schema_names.rb"}
         its(:timestamp) { should == "20120301182403" }
       end
     end
