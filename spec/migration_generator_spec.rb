@@ -120,8 +120,6 @@ module Access2rails
       end
 
       it "should not have syntax errors" do
-        puts "The migration is:"
-        puts migration
         expect { eval(migration) }.to_not raise_error
       end
 

@@ -71,8 +71,6 @@ module ::CommandLineSteps
     table.hashes.each do |hash|
       glob = File.join(@reference_path, hash['Name'])
       matches = Dir[glob]
-      # require 'pry'
-      # binding.pry
       fail "Multiple files found matching glob: #{glob}" if matches.count > 1
       fail "Expected file not found: #{glob}" unless matches.count == 1
     end
