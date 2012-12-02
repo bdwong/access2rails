@@ -36,6 +36,10 @@ module Access2rails::Xsd
       end
     end
 
+    def normalized_name
+      @name.gsub(/[ _]+/, "_").gsub("_x0020_", "_")
+    end
+
     def rails_name
       @name.underscore.gsub(" ", "_").gsub("_x0020_", "_")
     end

@@ -33,6 +33,10 @@ module Access2rails::Xsd
         @object.rails_name.should == "switchboard_items"
       end
 
+      it "should have the correct normalized_name" do
+        @object.normalized_name.should == "Switchboard_Items"
+      end
+
       it "should have the correct indices" do
         @object.indices.should be_kind_of Array
         @object.indices.count.should == 1

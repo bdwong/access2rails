@@ -65,10 +65,25 @@ module Access2rails
       end
     end
 
-    describe :default_filename do
-      it "should be schema.rails_name with .rb appended" do
+    describe :default_model_name do
+      it "should be singular schema.normalized_name" do
+        @schema_mock.name = "Entities"
         @model_generator = ModelGenerator.from_schema(@schema_mock)
-        @model_generator.default_filename.should == "schema_name.rb"
+        @model_generator.default_model_name.should == "Entity"
+      end
+
+      it "should have underscores minimized" do
+        @schema_mock.name = "My_Test_x0020_name"
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.default_model_name.should == "MyTestName"
+      end
+    end
+
+    describe :default_filename do
+      it "should be singular schema.rails_name with .rb appended" do
+        @schema_mock.name = "Entities"
+        @model_generator = ModelGenerator.from_schema(@schema_mock)
+        @model_generator.default_filename.should == "entity.rb"
 
         @schema_mock.name = "test_x0020_name"
         @model_generator = ModelGenerator.from_schema(@schema_mock)
