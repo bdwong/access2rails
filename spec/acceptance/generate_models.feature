@@ -8,6 +8,9 @@ Feature: Generate Models
   Scenario: running access2rails to generate models
     When the user runs 'access2rails' on examples
     Then there should be 1 file in 'tmp/project/app/models'
+    And the file should be named:
+    | Name                      |
+    | switchboard_item.rb       |
 
   Scenario: running access2rails to not generate models
     When the user runs 'access2rails --no-models' on examples

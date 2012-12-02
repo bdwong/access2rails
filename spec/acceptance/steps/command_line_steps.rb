@@ -60,11 +60,18 @@ module ::CommandLineSteps
   end
 
   step "there should be :count file/files in :path" do |count, path|
-    File.exist?(path).should be_true
+    @reference_path = path
+    File.exists?(path).should be_true
     Dir[File.join(path, "*")].count.should be == count
   end
 
-
+  # This optional step follows "there should be :count file/files in :path"
+  step "the file/files should be named:" do |table|
+    table.hashes.each do |hash|
+      filename = File.join(@reference_path, hash['Name'])
+      File.exists?(filename).should be_true, "Expected file not found: #{filename}"
+    end
+  end
 end
 
 # This lets the :count placeholder work more naturally.
