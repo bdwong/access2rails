@@ -2,6 +2,7 @@ module Access2rails::Commands
   class GenerateCommand < Command
     def initialize
       super
+      puts "*** GenerateCommand initializer"
       @options = {
         :models => true,
         :migrations => true,
@@ -9,6 +10,7 @@ module Access2rails::Commands
     end
 
     def option_parser
+      puts "*** GenerateCommand parser"
       OptionParser.new do |opts|
         opts.banner = [
           "Usage: access2rails generate [options] file_or_directory...",
@@ -29,6 +31,7 @@ module Access2rails::Commands
     end
 
     def execute
+      puts "*** GenerateCommand executor"
       files = file_list_from_args("*.xsd")
 
       if files.count == 0

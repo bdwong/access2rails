@@ -5,7 +5,8 @@ require 'access2rails/commands'
 module Access2rails
   class Executor
     def self.run
-      command_name = ARGV.pop
+      command_name = ARGV.shift
+      puts "COMMAND_NAME: '#{command_name}'"
       command_class = case command_name
       when 'help'
         Commands::HelpCommand
@@ -19,6 +20,7 @@ module Access2rails
         puts "'#{command_name}' is not a valid subcommand."
         Commands::UnknownCommand
       end
+      puts "COMMAND_CLASS: #{command_class}"
       command = command_class.new
       command.parse
       command.execute

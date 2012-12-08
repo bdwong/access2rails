@@ -12,11 +12,6 @@ Feature: help
     Then the output should include 'Usage:'
 
   Scenario: running access2rails with invalid option
-    When the user runs 'access2rails --blah'
+    When the user runs 'access2rails help --blah'
     Then the output should include 'invalid option'
-    And the output should include 'Usage:'
-
-  Scenario: running access2rails on empty folder
-    When the user runs 'access2rails examples/empty'
-    Then the output should include 'No files to process!'
     And the output should include 'Usage:'
