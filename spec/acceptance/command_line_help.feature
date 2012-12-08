@@ -16,10 +16,6 @@ Feature: help
     Then the output should include 'invalid option'
     And the output should include 'Usage:'
 
-  Scenario: running access2rails but file not found
-    When the user runs 'access2rails does-not-exist.xsd'
-    Then the output should include 'File not found'
-
   Scenario: running access2rails on empty folder
     When the user runs 'access2rails examples/empty'
     Then the output should include 'No files to process!'

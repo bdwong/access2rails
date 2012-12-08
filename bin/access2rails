@@ -1,73 +1,29 @@
 #!/usr/bin/env ruby
 require 'access2rails'
-require 'optparse'
+require 'access2rails/commands'
 
-options = {
-  :verbose => false,
-  :models => true,
-  :migrations => true,
-}
-opt_parser = OptionParser.new do |opts|
-  opts.banner = "Usage: access2rails [options] file_or_directory..."
-
-  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-    options[:verbose] = v
-  end
-  opts.on("-m", "--[no-]models", "Generate rails models") do |m|
-    options[:models] = m
-  end
-  opts.on("-g", "--[no-]migrations", "Generate rails migrations") do |m|
-    options[:migrations] = m
-  end
-  opts.on_tail("-h", "--help", "Show this message") do
-    puts opts
-    exit
-  end
-end
-
-begin
-  opt_parser.parse!
-rescue OptionParser::InvalidOption => e
-  puts e.to_s
-  puts opt_parser.help
-  exit
-end
-
-files = []
-ARGV.each do |path|
-  if File.directory?(path)
-    files.concat(Dir.glob(File.join(path, "*.xsd")))
-  elsif File.exists?(path)
-    files << path
-  else
-    puts "File not found: #{path}"
-    exit
-  end
-end
-
-if files.count == 0
-  puts "No files to process!"
-  puts opt_parser.help
-  exit
-end
-
-files.each do |schema_filename|
-  schema = Access2rails::Xsd::Schema.from_xml(File.read(schema_filename))
-  model_generator = Access2rails::ModelGenerator.from_schema(schema)
-  migration_generator = Access2rails::MigrationGenerator.from_schema(schema)
-
-  if options[:models]
-    model_path = File.join('app/models', model_generator.filename)
-    File.open(model_path, 'w+') do |f|
-      f.puts(model_generator.build)
-    end
-  end
-
-  if options[:migrations]
-    migration_path = File.join('db/migrate', migration_generator.filename)
-    File.open(migration_path, 'w+') do |f|
-      f.puts(migration_generator.build)
+module Access2rails
+  class Executor
+    def self.run
+      command_name = ARGV.pop
+      command_class = case command_name
+      when 'help'
+        Commands::HelpCommand
+      when 'generate'
+        Commands::GenerateCommand
+      when 'load'
+        Commands::LoadCommand
+      when nil
+        Commands::UnknownCommand
+      else
+        puts "'#{command_name}' is not a valid subcommand."
+        Commands::UnknownCommand
+      end
+      command = command_class.new
+      command.parse
+      command.execute
     end
   end
 end
 
+Access2rails::Executor.run
